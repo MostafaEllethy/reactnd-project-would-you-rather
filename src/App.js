@@ -1,30 +1,36 @@
-import React, { Fragment } from 'react';
+//import './App.css';
 //import logo from './logo.svg';
 //import { Counter } from './features/counter/Counter';
-import Header from './features/header/Header'
 //import CssBaseline from '@mui/material/CssBaseline'
-//import './App.css';
-import { ADD_QUESTION, LEADERBOARD } from './routes'
+
+import React from 'react';
+import Header from './features/header/Header'
+import { ADD_QUESTION, LEADERBOARD, LOGIN } from './routes'
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home'
 import Login from './pages/Login'
 import NewQuestion from './pages/NewQuestion'
 import Leaderboard from './pages/Leaderboard'
-
-//import { Routes } from 'react-router-dom';
+import { AuthProvider, RequireAuth } from './features/auth'
 
 function App() {
     return (
-        <Fragment>
+        <AuthProvider>
             {/*   <CssBaseline />*/}
             <Header />
             <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/login' element={<Login />} />
-                <Route path={ADD_QUESTION} element={<NewQuestion />} />
-                <Route path={LEADERBOARD} element={<Leaderboard />} />
+                <Route path='/' element={<RequireAuth>
+                    <Home />
+                </RequireAuth>} />
+                <Route path={LOGIN} element={<Login />} />
+                <Route path={ADD_QUESTION} element={<RequireAuth>
+                    <NewQuestion />
+                </RequireAuth>} />
+                <Route path={LEADERBOARD} element={<RequireAuth>
+                    <Leaderboard />
+                </RequireAuth>} />
             </Routes>
-        </Fragment>
+        </AuthProvider>
         //<div className="App">
         //  <header className="App-header">
         //    <img src={logo} className="App-logo" alt="logo" />

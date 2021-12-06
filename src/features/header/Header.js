@@ -5,13 +5,15 @@ import Toolbar from '@mui/material/Toolbar'
 import { NavLink } from 'react-router-dom'
 import { ADD_QUESTION, LEADERBOARD } from '../../routes'
 //import styles from './Header.module.scss';
+import { useAuth } from '../auth'
 
 const Header = () => {
+    const auth = useAuth();
+
     return <AppBar position='sticky' sx={{ boxShadow: 1 }}>
         <Typography variant='h3' component='h1' align='center' sx={{ padding: '5vmin', fontWeight: 'bold' }}>
             Would You Rather
         </Typography>
-
 
         <Toolbar variant='dense' sx={{ background: 'white' }}>
             <NavLink to='/'>
@@ -23,6 +25,7 @@ const Header = () => {
             <NavLink to={LEADERBOARD}>
                 Leaderboard
             </NavLink>
+            {auth.user && <button onClick={ auth.signout }>Logout</button>}
         </Toolbar>
     </AppBar>
 }
