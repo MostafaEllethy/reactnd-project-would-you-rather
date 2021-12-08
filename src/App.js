@@ -3,7 +3,7 @@
 //import { Counter } from './features/counter/Counter';
 //import CssBaseline from '@mui/material/CssBaseline'
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './features/header/Header'
 import { ADD_QUESTION, LEADERBOARD, LOGIN } from './routes'
 import { Routes, Route } from 'react-router-dom';
@@ -12,8 +12,12 @@ import Login from './pages/Login'
 import NewQuestion from './pages/NewQuestion'
 import Leaderboard from './pages/Leaderboard'
 import { AuthProvider, RequireAuth } from './features/auth'
+import { useDispatch } from 'react-redux';
+import { fetchUsers } from './features/user/userSlice';
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(fetchUsers()))
     return (
         <AuthProvider>
             {/*   <CssBaseline />*/}
