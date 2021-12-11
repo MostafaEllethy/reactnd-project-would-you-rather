@@ -9,8 +9,8 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     let [user, setUser] = useState(null)
 
-    const signin = () => { console.log("SignIn"); setUser('USER') }
-    const signout = () => { console.log("SignOut"); setUser(null) }
+    const signin = (user) => { setUser(user) }
+    const signout = () => { setUser(null) }
 
     const value = { user, signin, signout }
 

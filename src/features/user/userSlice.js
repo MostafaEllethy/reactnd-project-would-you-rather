@@ -5,8 +5,7 @@ const SLICE_NAME = 'user'
 
 const initialState = {
     users: {},
-    loading: true,
-    test: 'test'
+    loading: true
 };
 
 export const fetchUsers = createAsyncThunk(`${SLICE_NAME}/fetchUsers`, async () => {
@@ -27,6 +26,8 @@ export const userSlice = createSlice({
         }))
     }
 })
+
+export const selectUsers = (state) => state.user.users
 
 export const selectStatus = (state) => state.user.loading
 

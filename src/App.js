@@ -1,7 +1,6 @@
 //import './App.css';
 //import logo from './logo.svg';
 //import { Counter } from './features/counter/Counter';
-//import CssBaseline from '@mui/material/CssBaseline'
 
 import React, { useEffect } from 'react';
 import Header from './features/header/Header'
@@ -14,27 +13,32 @@ import Leaderboard from './pages/Leaderboard'
 import { AuthProvider, RequireAuth } from './features/auth'
 import { useDispatch } from 'react-redux';
 import { fetchUsers } from './features/user/userSlice';
+import { grey } from '@mui/material/colors';
+import { Grid } from "@mui/material";
+
 
 function App() {
     const dispatch = useDispatch();
-    useEffect(() => dispatch(fetchUsers()))
+    useEffect(() => dispatch(fetchUsers()), [dispatch])
     return (
-        <AuthProvider>
-            {/*   <CssBaseline />*/}
-            <Header />
-            <Routes>
-                <Route path='/' element={<RequireAuth>
-                    <Home />
-                </RequireAuth>} />
-                <Route path={LOGIN} element={<Login />} />
-                <Route path={ADD_QUESTION} element={<RequireAuth>
-                    <NewQuestion />
-                </RequireAuth>} />
-                <Route path={LEADERBOARD} element={<RequireAuth>
-                    <Leaderboard />
-                </RequireAuth>} />
-            </Routes>
-        </AuthProvider>
+        <Grid sx={{ backgroundColor: grey[50], minHeight: '100vh' }}>
+            <AuthProvider>
+                <Header />
+                <Routes>
+                    <Route path='/' element={<RequireAuth>
+                        <Home />
+                    </RequireAuth>} />
+                    <Route path={LOGIN} element={<Login />} />
+                    <Route path={ADD_QUESTION} element={<RequireAuth>
+                        <NewQuestion />
+                    </RequireAuth>} />
+                    <Route path={LEADERBOARD} element={<RequireAuth>
+                        <Leaderboard />
+                    </RequireAuth>} />
+                </Routes>
+            </AuthProvider>
+        </Grid>
+
         //<div className="App">
         //  <header className="App-header">
         //    <img src={logo} className="App-logo" alt="logo" />
