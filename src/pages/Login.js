@@ -1,14 +1,14 @@
 import logo from '../logo.svg'
-import { useSelector } from "react-redux"
-import { useAuth } from '../features/auth'
+import { useDispatch, useSelector } from "react-redux"
 import { grey, deepPurple } from '@mui/material/colors';
 import { selectStatus, selectUsers } from '../features/user/userSlice'
+import { signin } from '../features/auth/authSlice'
 import { useLocation, useNavigate } from "react-router-dom"
 import { Card, CardActions, CardContent, Button, Grid, CardHeader, Typography, Box, Autocomplete, TextField, LinearProgress, Snackbar, Alert } from "@mui/material";
 import { useState, Fragment } from 'react';
 
 const Login = () => {
-    const auth = useAuth()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
@@ -22,7 +22,7 @@ const Login = () => {
             setOpenSnackBar(true)
             return;
         }
-        auth.signin(user)
+        dispatch(signin(user));
         navigate(from, { replace: true })
     }
 
@@ -32,7 +32,7 @@ const Login = () => {
     }
 
     const handleSnackBarClose = (e, reason) => {
-        if(reason === 'timeout') setOpenSnackBar(false)
+        if (reason === 'timeout') setOpenSnackBar(false)
     }
 
     return (
@@ -40,8 +40,8 @@ const Login = () => {
             <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleSnackBarClose}>
                 <Alert severity="error">Please select user from the list!</Alert>
             </Snackbar>
-            <Grid container direction='row' justifyContent='center' alignItems='center'>
-                <Grid item xs={5}>
+            <Grid container direction='row' justifyContent='center' alignItems='center' sx={{ pt: '10vmin' }}>
+                <Grid item xs={4}>
                     <Card variant='outlined'>
                         <CardHeader component={() => (
                             <Box sx={{ textAlign: 'center', backgroundColor: grey[100], pt: '0.5rem', pb: '0.5rem' }}>
@@ -59,7 +59,7 @@ const Login = () => {
                                 <LinearProgress color='inherit' sx={{ color: deepPurple[500] }} />
                             ) : (<Autocomplete size='small' options={users} renderOption={(props, option) => {
                                 return <Box component="li" {...props}>
-                                    <img loading="lazy" width="30" src={option.avatarURL} srcSet={option.avatarURL} alt={`${option.name} avatar`} /> {option.name}</Box>
+                                    <img loading="eager" width="30" src={option.avatarURL} srcSet={option.avatarURL} alt={`${option.name} avatar`} /> {option.name}</Box>
                             }} getOptionLabel={(option) => option.name} loading disableClearable autoHighlight openOnFocus disablePortal renderInput={(params) => <TextField {...params} color='success' label="Select User" />}
                                 onChange={handleSetUser} />)}
                         </CardContent>
