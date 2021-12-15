@@ -2,9 +2,9 @@ import { Box, Tabs, Tab, CardContent } from '@mui/material'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useState, Fragment } from 'react'
-import UnansweredQuestions from '../features/question/UnansweredQuestions'
-import AnsweredQuestions from '../features/question/AnsweredQuestions'
-
+import { useSelector } from 'react-redux';
+import { selectAnsweredQuestions, selectUnansweredQuestions } from '../features/question/questionSlice';
+import QuestionsList from '../features/question/QuestionsList'
 
 const Home = () => {
     const [tab, setTab] = useState(0);
@@ -12,6 +12,8 @@ const Home = () => {
     const handleTabChange = (event, newTab) => {
         setTab(newTab);
     };
+
+    const questions = useSelector(tab === 0 ? selectUnansweredQuestions : selectAnsweredQuestions)
 
     return (
         <Fragment>
@@ -22,11 +24,8 @@ const Home = () => {
                 </Tabs>
             </Box>
             <CardContent>
-                {tab === 0 && <UnansweredQuestions />}
-                {tab === 1 && <AnsweredQuestions />}
+                <QuestionsList questions={questions} />
             </CardContent>
-  
-
         </Fragment>
     )
 }

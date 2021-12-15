@@ -43,12 +43,12 @@ export const selectStatus = (state) => state.question.loading
 
 export const selectUnansweredQuestions = createSelector([selectAuthUser, selectQuestions], (authUser, questions) => {
     const qIds = Object.keys(authUser.answers)
-    return Object.values(questions).filter(q => !qIds.includes(q.id))
+    return Object.values(questions).filter(q => !qIds.includes(q.id)).sort((a, b) => b.timestamp - a.timestamp)
 })
 
 export const selectAnsweredQuestions = createSelector([selectAuthUser, selectQuestions], (authUser, questions) => {
     const qIds = Object.keys(authUser.answers)
-    return Object.values(questions).filter(q => qIds.includes(q.id))
+    return Object.values(questions).filter(q => qIds.includes(q.id)).sort((a, b) => b.timestamp - a.timestamp)
 })
 
 export default questionSlice.reducer

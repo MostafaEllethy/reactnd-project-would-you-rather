@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ADD_QUESTION, LEADERBOARD, LOGIN } from './routes'
+import { ADD_QUESTION, LEADERBOARD, LOGIN, QUESTION } from './routes'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -10,6 +10,7 @@ import { fetchUsers } from './features/user/userSlice';
 import { grey } from '@mui/material/colors';
 import { Grid, CircularProgress, Box } from "@mui/material";
 import NotFound from './pages/404'
+import Question from './pages/Question'
 import { selectStatus, fetchQuestions } from './features/question/questionSlice';
 import { selectAuthUser } from './features/auth/authSlice';
 import Layout from './layouts/MainLayout'
@@ -33,6 +34,7 @@ function App() {
                             <Route path='/' element={<Home />} exact />
                             <Route path={ADD_QUESTION} element={<NewQuestion />} exact />
                             <Route path={LEADERBOARD} element={<Leaderboard />} exact />
+                            <Route path={QUESTION} element={<Question />} exact />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </Layout>
