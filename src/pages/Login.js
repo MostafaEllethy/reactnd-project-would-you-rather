@@ -4,8 +4,9 @@ import { grey, deepPurple } from '@mui/material/colors';
 import { selectStatus, selectUsers } from '../features/user/userSlice'
 import { signin } from '../features/auth/authSlice'
 import { useLocation, useNavigate } from "react-router-dom"
-import { Card, CardActions, CardContent, Button, Grid, CardHeader, Typography, Box, Autocomplete, TextField, LinearProgress, Snackbar, Alert } from "@mui/material";
+import { Card, CardActions, CardContent, Button, Grid, CardHeader, Typography, Box, Autocomplete, TextField, LinearProgress } from "@mui/material";
 import { useState, Fragment } from 'react';
+import { setSnackBarText } from '../app/appSlice';
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -15,11 +16,10 @@ const Login = () => {
     const usersLoading = useSelector(selectStatus)
     const users = Object.values(useSelector(selectUsers))
     const [user, setUser] = useState(null)
-    const [openSnackBar, setOpenSnackBar] = useState(false)
 
     const signIn = () => {
         if (!user) {
-            setOpenSnackBar(true)
+            dispatch(setSnackBarText('Please select user from the list!'))
             return;
         }
         dispatch(signin(user));
@@ -31,15 +31,8 @@ const Login = () => {
         setUser(val)
     }
 
-    const handleSnackBarClose = (e, reason) => {
-        if (reason === 'timeout') setOpenSnackBar(false)
-    }
-
     return (
         <Fragment>
-            <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleSnackBarClose}>
-                <Alert severity="error">Please select user from the list!</Alert>
-            </Snackbar>
             <Grid container direction='row' justifyContent='center' alignItems='center' sx={{ pt: '10vmin' }}>
                 <Grid item xs={4}>
                     <Card variant='outlined'>

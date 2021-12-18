@@ -2,8 +2,8 @@ import Header from '../features/header/Header'
 import { Fragment } from 'react'
 import { Grid, Card, } from '@mui/material'
 
-const MainLayout = ({ children }) => (
-    <Fragment>
+const MainLayout = ({ children }) => {
+    return <Fragment>
         <Header />
         <Grid container direction='row' justifyContent='center' alignItems='center'>
             <Grid item xs={6}>
@@ -13,6 +13,6 @@ const MainLayout = ({ children }) => (
             </Grid>
         </Grid>
     </Fragment >
-)
+}
 
 export default MainLayout

@@ -1,4 +1,4 @@
-import { Grid, Card, CardActionArea, CardHeader, CardContent, Typography, Box, Divider, Avatar, Button } from '@mui/material'
+import { Grid, Card, CardActionArea, CardHeader, CardContent, Typography, Box, Divider, Avatar, Chip } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -32,9 +32,7 @@ const QuestionsListItem = ({ question }) => {
                                     <Typography variant='body2'>
                                         {question.optionOne.text} | {question.optionTwo.text}
                                     </Typography>
-                                    <Button variant='outlined' sx={{ mt: 2 }} fullWidth>
-                                        View Poll
-                                    </Button>
+                                    <Chip variant='outlined' sx={{ mt: 2, px: 2 }} label="View Poll" clickable color="primary"  />
                                 </Box>
                             </Grid>
                         </Grid>

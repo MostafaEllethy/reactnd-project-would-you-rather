@@ -14,6 +14,7 @@ import Question from './pages/Question'
 import { selectStatus, fetchQuestions } from './features/question/questionSlice';
 import { selectAuthUser } from './features/auth/authSlice';
 import Layout from './layouts/MainLayout'
+import SnackbarHandler from './features/snackbar-handler/SnackbarHandler'
 
 function App() {
     const location = useLocation()
@@ -23,6 +24,7 @@ function App() {
     useEffect(() => { dispatch(fetchUsers()); dispatch(fetchQuestions()) }, [dispatch])
     return (
         <Grid sx={{ backgroundColor: grey[50], minHeight: '100vh' }}>
+            <SnackbarHandler />
             {authUser ? (
                 questionsLoading ? (
                     <Box sx={{ textAlign: 'center', pt: '10vmin' }}>

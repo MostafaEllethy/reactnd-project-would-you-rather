@@ -4,21 +4,22 @@ import {
     createSlice
 } from "@reduxjs/toolkit";
 import {
-    _getQuestions
+    _getQuestions,
+    _saveQuestion
 } from '../../utils/_DATA'
-import {selectAuthUser} from '../auth/authSlice'
+import { selectAuthUser } from '../auth/authSlice'
 
 const SLICE_NAME = 'question'
 
 const initialState = {
     questions: {},
+    saving: false,
     loading: true
 };
 
-export const fetchQuestions = createAsyncThunk(`${SLICE_NAME}/fetchQuestions`, async () => {
-    const response = await _getQuestions()
-    return response
-})
+export const fetchQuestions = createAsyncThunk(`${SLICE_NAME}/fetchQuestions`, async () => await _getQuestions())
+
+export const saveQuestion = createAsyncThunk(`${SLICE_NAME}/saveQuestion`, async (payload, store) => await _saveQuestion({ ...payload, author: store.getState().auth.user.id }))
 
 export const questionSlice = createSlice({
     name: SLICE_NAME,
@@ -34,12 +35,27 @@ export const questionSlice = createSlice({
                 ...action.payload
             }
         }))
+        builder.addCase(saveQuestion.pending, (state) => {
+            state.saving = true
+        }).addCase(saveQuestion.fulfilled, (state, action) => {
+            const question = action.payload
+            return {
+                ...state,
+                questions: {
+                    ...state.questions,
+                    [question.id]: question
+                },
+                saving: false
+            }
+        })
     }
 })
 
 export const selectQuestions = (state) => state.question.questions
 
 export const selectStatus = (state) => state.question.loading
+
+export const selectSaving = (state) => state.question.saving
 
 export const selectUnansweredQuestions = createSelector([selectAuthUser, selectQuestions], (authUser, questions) => {
     const qIds = Object.keys(authUser.answers)
