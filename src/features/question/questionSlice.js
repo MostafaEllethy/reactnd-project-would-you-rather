@@ -9,6 +9,7 @@ import {
     _saveQuestionAnswer
 } from '../../utils/_DATA'
 import { selectAuthUser } from '../auth/authSlice'
+import { saveUserAnswer } from "../user/userSlice";
 
 const SLICE_NAME = 'question'
 
@@ -23,23 +24,28 @@ export const fetchQuestions = createAsyncThunk(`${SLICE_NAME}/fetchQuestions`, a
 
 export const saveQuestion = createAsyncThunk(`${SLICE_NAME}/saveQuestion`, async (payload, store) => await _saveQuestion({ ...payload, author: store.getState().auth.user.id }))
 
-export const saveQuestionAnswer = createAsyncThunk(`${SLICE_NAME}/saveQuestionAnswer`, async(payload, store) > await _saveQuestionAnswer())
+export const saveQuestionAnswer = createAsyncThunk(`${SLICE_NAME}/saveQuestionAnswer`, async (payload, store) => {
+    payload = { ...payload, authedUser: store.getState().auth.user.id }
+    await _saveQuestionAnswer(payload);
+    store.dispatch(saveUserAnswer(payload))
+    return payload
+})
 
 export const questionSlice = createSlice({
     name: SLICE_NAME,
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(fetchQuestions.pending, (state) => {
-            state.loading = true
-        }).addCase(fetchQuestions.fulfilled, (state, action) => ({
+        builder.addCase(fetchQuestions.pending, (state) => ({
+            ...state,
+            loading: true
+        })).addCase(fetchQuestions.fulfilled, (state, action) => ({
             ...state,
             loading: false,
             questions: {
                 ...state.questions,
                 ...action.payload
             }
-        }))
-        builder.addCase(saveQuestion.pending, (state) => {
+        })).addCase(saveQuestion.pending, (state) => {
             state.saving = true
         }).addCase(saveQuestion.fulfilled, (state, action) => {
             const question = action.payload
@@ -51,6 +57,21 @@ export const questionSlice = createSlice({
                 },
                 saving: false
             }
+        }).addCase(saveQuestionAnswer.pending, state => ({ ...state, savingAnswer: true })).addCase(saveQuestionAnswer.fulfilled, (state, action) => {
+            const { answer, authedUser, qid } = action.payload
+            const { questions } = state
+            return {
+                ...state, savingAnswer: false, questions: {
+                    ...questions,
+                    [qid]: {
+                        ...questions[qid],
+                        [answer]: {
+                            ...questions[qid][answer],
+                            votes: questions[qid][answer].votes.concat([authedUser])
+                        }
+                    }
+                }
+            }
         })
     }
 })
@@ -58,6 +79,8 @@ export const questionSlice = createSlice({
 export const selectQuestions = (state) => state.question.questions
 
 export const selectStatus = (state) => state.question.loading
+
+export const selectSavingAnswer = (state) => state.question.savingAnswer
 
 export const selectSaving = (state) => state.question.saving
 

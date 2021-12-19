@@ -21,6 +21,9 @@ export const authSlice = createSlice({
 
 export const { signin, signout } = authSlice.actions
 
-export const selectAuthUser = (state) => state.auth.user
+export const selectAuthUser = (state) => {
+    const authUser = state.auth.user
+    return authUser ? state.user.users[authUser.id] : null
+}
 
 export default authSlice.reducer
