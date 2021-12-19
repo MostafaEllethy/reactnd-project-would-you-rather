@@ -25,26 +25,28 @@ const Leaderboard = () => {
                                             {user.name}
                                         </Typography>
                                         <table>
-                                            <tr>
-                                                <td>
-                                                    Answered Questions:
-                                                </td>
-                                                <td>
-                                                    <strong>
-                                                        {Object.values(user.answers).length}
-                                                    </strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Created Questions:
-                                                </td>
-                                                <td>
-                                                    <strong>
-                                                        {Object.values(user.questions).length}
-                                                    </strong>
-                                                </td>
-                                            </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Answered Questions:
+                                                    </td>
+                                                    <td>
+                                                        <strong>
+                                                            {Object.values(user.answers).length}
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Created Questions:
+                                                    </td>
+                                                    <td>
+                                                        <strong>
+                                                            {Object.values(user.questions).length}
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </Grid>
                                     <Grid item xs={2}>
