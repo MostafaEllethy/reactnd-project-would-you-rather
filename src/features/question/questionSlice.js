@@ -5,7 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 import {
     _getQuestions,
-    _saveQuestion
+    _saveQuestion,
+    _saveQuestionAnswer
 } from '../../utils/_DATA'
 import { selectAuthUser } from '../auth/authSlice'
 
@@ -14,12 +15,15 @@ const SLICE_NAME = 'question'
 const initialState = {
     questions: {},
     saving: false,
+    savingAnswer: false,
     loading: true
 };
 
 export const fetchQuestions = createAsyncThunk(`${SLICE_NAME}/fetchQuestions`, async () => await _getQuestions())
 
 export const saveQuestion = createAsyncThunk(`${SLICE_NAME}/saveQuestion`, async (payload, store) => await _saveQuestion({ ...payload, author: store.getState().auth.user.id }))
+
+export const saveQuestionAnswer = createAsyncThunk(`${SLICE_NAME}/saveQuestionAnswer`, async(payload, store) > await _saveQuestionAnswer())
 
 export const questionSlice = createSlice({
     name: SLICE_NAME,

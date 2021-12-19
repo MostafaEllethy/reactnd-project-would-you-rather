@@ -22,7 +22,7 @@ const Question = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!option) { dispatch(setSnackBarText("Please select an option before submit!")); return; }
-        
+        // {qid, answer}
     }
 
     return <Fragment>
@@ -33,7 +33,6 @@ const Question = () => {
             <Grid container sx={{ alignItems: 'middle' }}>
                 <Grid item xs={5} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <img alt={`${user.name} avatar`} src={user.avatarURL} width='150' />
-                    {/*<Avatar alt={`${user.name} avatar`} src={user.avatarURL} sx={{ height: 92, width: 92 }} />*/}
                 </Grid>
                 <Divider orientation="vertical" flexItem />
                 <Grid item xs>
