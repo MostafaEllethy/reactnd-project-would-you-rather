@@ -52,7 +52,7 @@ const Login = () => {
                                 <LinearProgress color='inherit' sx={{ color: deepPurple[500] }} />
                             ) : (<Autocomplete size='small' options={users} renderOption={(props, option) => {
                                 return <Box component="li" {...props}>
-                                    <img loading="eager" width="30" src={option.avatarURL} srcSet={option.avatarURL} alt={`${option.name} avatar`} /> {option.name}</Box>
+                                    <img width="30" src={option.avatarURL} srcSet={option.avatarURL} alt={`${option.name} avatar`} /> {option.name}</Box>
                             }} getOptionLabel={(option) => option.name} loading disableClearable autoHighlight openOnFocus disablePortal renderInput={(params) => <TextField {...params} color='success' label="Select User" />}
                                 onChange={handleSetUser} />)}
                         </CardContent>
