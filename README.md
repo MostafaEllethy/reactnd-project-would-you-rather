@@ -21,4 +21,4 @@ A web app that lets a user play the “Would You Rather?” game.
 
 ## Note
 
-The state will not persit across refreshes.
+The state will not persist across refresh.
