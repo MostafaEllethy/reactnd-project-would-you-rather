@@ -40,3 +40,4 @@ packages/react-devtools-timeline/dist
 yarn.lock
 package-lock.json
 /.vs
+.env
