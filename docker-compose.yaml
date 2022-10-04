@@ -1,0 +1,8 @@
+version: "3"
+services:
+  would-you-rather:
+    build: .
+    network_mode: bridge
+    environment:
+      - VIRTUAL_HOST=would-you-rather.mostafaellethy.com
+      - LETSENCRYPT_HOST=would-you-rather.mostafaellethy.com
