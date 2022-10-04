@@ -8,9 +8,9 @@ A web app that lets a user play the “Would You Rather?” game.
 
 &nbsp;
 
-## 🎉 Live Site
+## 🎉 Live Demo
 
-[View Live](https://would-you-rather.mostafaellethy.com/)
+[View Demo](https://would-you-rather.mostafaellethy.com/)
 
 &nbsp;
 
