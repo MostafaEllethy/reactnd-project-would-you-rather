@@ -1,6 +1,7 @@
 version: "3"
 services:
   would-you-rather:
+    container_name: would-you-rather
     build: .
     network_mode: bridge
     environment:
