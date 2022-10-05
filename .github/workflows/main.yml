@@ -19,6 +19,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script_stop: true
+          command_timeout: 60m
           script: |
             cd reactnd-project-would-you-rather
             git fetch

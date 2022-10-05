@@ -5,9 +5,5 @@ node_modules
 .gitattributes
 .gitignore
 Dockerfile
-pagespeed-insights.png
-postcss.config.js
-README.md
-screenshot.png
-.env
-.env.sample
+performance.png
+*.md
